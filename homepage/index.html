@@ -5,7 +5,24 @@
     .circle {
       position: absolute;
       border-radius: 50%;
-      transition: all 2s ease-in-out;
+      transition: all 10s ease-in-out;
+    }
+
+    .circle:hover {
+      transform: scale(1.2);
+    }
+
+    .circle:hover::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -15,11 +32,12 @@
       window.location.href = url;
     }
 
-    function createCircle(x, y, imageUrl, destinationUrl) {
+    function createCircle(x, y, imageUrl, destinationUrl, text) {
       const circle = document.createElement('div');
       circle.classList.add('circle');
       circle.style.left = x + 'px';
       circle.style.top = y + 'px';
+      circle.setAttribute('data-text', text);
 
       const image = document.createElement('img');
       image.src = imageUrl;
@@ -31,18 +49,19 @@
 
       document.body.appendChild(circle);
 
-      setTimeout(function() {
-        const newX = Math.floor(Math.random() * window.innerWidth);
-        const newY = Math.floor(Math.random() * window.innerHeight);
+      setInterval(function() {
+        const newX = Math.floor(Math.random() * (window.innerWidth - 100));
+        const newY = Math.floor(Math.random() * (window.innerHeight - 100));
         circle.style.left = newX + 'px';
         circle.style.top = newY + 'px';
-      }, 2000);
+      }, 1000);
     }
 
     // Create circles
-    createCircle(100, 100, 'image1.jpg', 'https://example.com/page1');
-    createCircle(200, 200, 'image2.jpg', 'https://example.com/page2');
-    createCircle(300, 300, 'image3.jpg', 'https://example.com/page3');
+    createCircle(100, 100, 'minecraft.jpg', 'https://example.com/page1', 'Eagler 1.5');
+    createCircle(200, 200, 'minecraft.jpg', 'https://example.com/page2', 'Eagler 1.8');
+    createCircle(300, 300, 'minecraft.jpg', 'https://example.com/page3', 'Dragon X');
+    createCircle(300, 300, 'image3.jpg', 'https://example.com/page3', 'Drive Mad');
   </script>
 </body>
 </html>
