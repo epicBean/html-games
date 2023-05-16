@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat System</title>
+    <style>
+        #chatbox {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat System</h1>
+    
+    <div id="chatbox"></div>
+    
+    <input type="text" id="username" placeholder="Enter your username">
+    <input type="text" id="message" placeholder="Enter your message">
+    <button onclick="sendMessage()">Send</button>
+    
+    <script>
+        var chatbox = document.getElementById("chatbox");
+        var usernameInput = document.getElementById("username");
+        var messageInput = document.getElementById("message");
+
+        function sendMessage() {
+            var username = usernameInput.value;
+            var message = messageInput.value;
+
+            if (username === "" || message === "") {
+                return;
+            }
+
+            var chatEntry = document.createElement("p");
+            chatEntry.innerHTML = "<strong>" + username + ":</strong> " + message;
+            chatbox.appendChild(chatEntry);
+            messageInput.value = "";
+            messageInput.focus();
+        }
+    </script>
+</body>
+</html>
