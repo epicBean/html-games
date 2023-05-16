@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      transition: all 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function navigateTo(url) {
+      window.location.href = url;
+    }
+
+    function createCircle(x, y, imageUrl, destinationUrl) {
+      const circle = document.createElement('div');
+      circle.classList.add('circle');
+      circle.style.left = x + 'px';
+      circle.style.top = y + 'px';
+
+      const image = document.createElement('img');
+      image.src = imageUrl;
+      circle.appendChild(image);
+
+      circle.addEventListener('click', function() {
+        navigateTo(destinationUrl);
+      });
+
+      document.body.appendChild(circle);
+
+      setTimeout(function() {
+        const newX = Math.floor(Math.random() * window.innerWidth);
+        const newY = Math.floor(Math.random() * window.innerHeight);
+        circle.style.left = newX + 'px';
+        circle.style.top = newY + 'px';
+      }, 2000);
+    }
+
+    // Create circles
+    createCircle(100, 100, 'image1.jpg', 'https://example.com/page1');
+    createCircle(200, 200, 'image2.jpg', 'https://example.com/page2');
+    createCircle(300, 300, 'image3.jpg', 'https://example.com/page3');
+  </script>
+</body>
+</html>
