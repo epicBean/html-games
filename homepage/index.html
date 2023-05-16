@@ -45,11 +45,13 @@
       window.location.href = url;
     }
 
-    function createCircle(x, y, imageUrl, destinationUrl, text) {
+    function createCircle(imageUrl, destinationUrl, text) {
       const circle = document.createElement('div');
       circle.classList.add('circle');
-      circle.style.left = x + 'px';
-      circle.style.top = y + 'px';
+      const newX = Math.floor(Math.random() * (window.innerWidth - 100));
+      const newY = Math.floor(Math.random() * (window.innerHeight - 100));
+      circle.style.left = newX + 'px';
+      circle.style.top = newY + 'px';
       circle.setAttribute('data-text', text);
 
       const image = document.createElement('img');
@@ -71,12 +73,12 @@
     }
 
     // Create circles
-    createCircle(100, 100, 'images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/eaglercraft-1-5', 'Eagler 1.5');
-    createCircle(200, 200, 'images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/eaglercraft-1-8-8', 'Eagler 1.8');
-    createCircle(300, 300, 'images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/dragon-x-client', 'Dragon X');
-    createCircle(300, 300, 'images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/1v1-lol', '1v1.lol');
-    createCircle(300, 300, 'images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/3d-cuphead', '3D Cuphead');
-    createCircle(300, 300, 'images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/arras-io', 'Arras.io');
+    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/eaglercraft-1-5', 'Eagler 1.5');
+    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/eaglercraft-1-8-8', 'Eagler 1.8');
+    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/dragon-x-client', 'Dragon X');
+    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/1v1-lol', '1v1.lol');
+    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/3d-cuphead', '3D Cuphead');
+    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/arras-io', 'Arras.io');
   </script>
   <p>THIS IS A TEST</p>
 </body>
