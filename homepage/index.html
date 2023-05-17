@@ -70,6 +70,14 @@
     </style>
   </head>
   <body>
+    <!--Titles-->
+    <div class="title">
+      <h1>PixELA</h1>
+    </div>
+    <div id="games" class="title">Gamecount Unnavailable</div>
+
+
+    <!--Games Representation-->
     <script>
       function createCircle(imageUrl, text) {
         const circle = document.createElement('div');
@@ -205,10 +213,5 @@
           circles.forEach(circle => circle.update());
         }, 20);
     </script>
-
-    <div class="title">
-      <h1>PixELA</h1>
-    </div>
-    <div id="games" class="title">Gamecount Unnavailable</div>
   </body>
 </html>
