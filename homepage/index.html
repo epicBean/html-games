@@ -189,8 +189,12 @@
         const games = ["1v1.LOL", "3D Cuphead", "Arras.io", "Agar-io", "Angry Birds", "Among us", "Alien Hominid", "ADOFAI (Demo)", "Abandoned Fazbear", "BitLife", "Battle Sim", "Backrooms", "Blumgi Ball", "Blumgi Castle", "Baldi Basics", "Basketball Stars", "Boxel Rebound", "Crossy Road", "Cookie Clicker", "Cats Love Cake", "Castle Crashing the Beard", "Capybara Clicker", "Dad n Me", "Doomz.io", "Drive Mad", "Drive mad 2", "Drift Hunters", "Drive and Jive", "Dumb Ways to Die", "Fall Boys", "Fruit Ninja", "Fancade Rally Race", "FNAF: Final Purgatory", "Five Nights At Freddys", "Five Nights At Freddys 2", "Five Nights At Freddys 3", "Five Nights At Freddys 4", "Gobble", "Gun Game", "Google Baseball", "Google Basketball", "Helix Jump", "Hunter assassin", "Happy Wheels", "Im Sorry John", "Jetpack Joyride", "Kirka.io", "Kill the ice age baby", "Leader Strike", "Mario FPS", "Moto X3M", "Moto X3M (Winter)", "Madness Accelerant", "Madness: Project Nexus", "Paper.io", "Pizza Tower", "Slope", "Snake", "Sonic 3", "Shitblox", "Skull Kid", "Skull Kid 2", "SQUADADDLE", "Super Smash Bros", "Sausage Flip", "Super Mario 3", "Subway Surfers", "Stick Duel Revenge", "Stick War: infinty Duel", "Super Mario Bros Versus", "Super Mario 64", "Super Mario Bros", "Tunnel Mania", "Trap Adventure 2", "The Binding of Issac", "One Night With Spong", "One Night With Spong 2", "Pokemon Red", "Ritz", "Run 3", "Ragdoll.io", "Run 2023", "Yohoho.io", "Zomb Royale", "squid shit", "Worlds Hardest Game", "Doodle Jump", "Stack", "Cookie Clicker (webglmath)", "Just One Boss - Hydra", "Google Feud", "Among Us", "Just One Boss Spin Eternally", "Jetpack Joyride", "Space Shooter", "Eagler Craft 1.5", "Eagler Craft 1.8", "Dragon X Client V2"];
 
         const element = document.getElementById("games");
-        element.textContent = (games.length).toString() + " games!";
-        document.body.appendChild(element);
+
+        if (element) {
+          element.textContent = (games.length).toString() + " games!";
+        } else {
+          console.log("The element with the ID 'games' does not exist.");
+        }
 
         for (let i = 0; i < (games.length); i++) {
           const game = games[i];
