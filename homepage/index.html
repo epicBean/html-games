@@ -74,10 +74,8 @@
     function createCircle(imageUrl, text) {
       const circle = document.createElement('div');
       circle.classList.add('circle');
-      const newX = Math.floor(Math.random() * (window.innerWidth - 100));
-      const newY = Math.floor(Math.random() * (window.innerHeight - 100));
-      circle.style.left = newX + 'px';
-      circle.style.top = newY + 'px';
+      circle.style.left = Math.floor(Math.random() * (window.innerWidth - 100)) + 'px';
+      circle.style.top = Math.floor(Math.random() * (window.innerHeight - 100)) + 'px';
       circle.setAttribute('data-text', text);
 
       const image = document.createElement('img');
@@ -91,7 +89,7 @@
         y: Math.random() * 2 - 1
       };
 
-      const speed = 10;
+      const speed = 5; // Adjust the speed here
 
       setInterval(function() {
         const circleRect = circle.getBoundingClientRect();
@@ -106,21 +104,22 @@
         let count = 0;
 
         for (let i = 0; i < otherCircles.length; i++) {
-          if (otherCircles[i] !== circle) {
-            const otherCircleRect = otherCircles[i].getBoundingClientRect();
+          const otherCircle = otherCircles[i];
+
+          if (otherCircle !== circle) {
+            const otherCircleRect = otherCircle.getBoundingClientRect();
             const otherCenterX = otherCircleRect.left + otherCircleRect.width / 2;
             const otherCenterY = otherCircleRect.top + otherCircleRect.height / 2;
-
             const distanceX = otherCenterX - centerX;
             const distanceY = otherCenterY - centerY;
-            const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            const distanceSquared = distanceX * distanceX + distanceY * distanceY;
 
-            if (distance < 150) {
-              alignmentForce.x += velocity.x;
-              alignmentForce.y += velocity.y;
+            if (distanceSquared < 10000) {
+              alignmentForce.x += otherCircle.velocity.x;
+              alignmentForce.y += otherCircle.velocity.y;
 
-              separationForce.x += distanceX / distance;
-              separationForce.y += distanceY / distance;
+              separationForce.x += distanceX / distanceSquared;
+              separationForce.y += distanceY / distanceSquared;
 
               cohesionForce.x += distanceX;
               cohesionForce.y += distanceY;
@@ -133,10 +132,8 @@
         if (count > 0) {
           alignmentForce.x /= count;
           alignmentForce.y /= count;
-
           separationForce.x /= count;
           separationForce.y /= count;
-
           cohesionForce.x /= count;
           cohesionForce.y /= count;
         }
@@ -149,33 +146,20 @@
         velocity.x += acceleration.x;
         velocity.y += acceleration.y;
 
-        const speedFactor = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y) / speed;
+        const speedFactor = speed / Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+        velocity.x *= speedFactor;
+        velocity.y *= speedFactor;
 
-        if (speedFactor > 0) {
-          velocity.x /= speedFactor;
-          velocity.y /= speedFactor;
-        }
-
-        const nextX = centerX + velocity.x * speed;
-        const nextY = centerY + velocity.y * speed;
-
-        if (nextX >= 0 && nextX <= window.innerWidth - circleRect.width) {
-          circle.style.left = nextX + 'px';
-        }
-
-        if (nextY >= 0 && nextY <= window.innerHeight - circleRect.height) {
-          circle.style.top = nextY + 'px';
-        }
-      }, 50);
+        circle.style.left = (circleRect.left + velocity.x) + 'px';
+        circle.style.top = (circleRect.top + velocity.y) + 'px';
+      }, 16.67); // Update every 16.67 milliseconds (~60 FPS)
 
       circle.addEventListener('click', function() {
         circle.style.display = 'none'; // Hide the clicked circle
 
         setTimeout(function() {
-          const newX = Math.floor(Math.random() * (window.innerWidth - 100));
-          const newY = Math.floor(Math.random() * (window.innerHeight - 100));
-          circle.style.left = newX + 'px';
-          circle.style.top = newY + 'px';
+          circle.style.left = Math.floor(Math.random() * (window.innerWidth - 100)) + 'px';
+          circle.style.top = Math.floor(Math.random() * (window.innerHeight - 100)) + 'px';
           circle.style.display = 'block'; // Show the circle after a delay
         }, 1000);
       });
@@ -209,12 +193,79 @@
     createCircle('images/icon.png', 'Capybara Clicker');
     createCircle('images/icon.png', 'Dad N Me');
     createCircle('images/icon.png', 'Doomz.io');
-    createCircle('images/icon.png', 'Drive Mad');
-    createCircle('images/icon.png', 'Drive Mad 2');
+    createCircle('images/icon.png', 'Don\'t Get Caught');
+    createCircle('images/icon.png', 'Doge Miner');
+    createCircle('images/icon.png', 'Diep.io');
+    createCircle('images/icon.png', 'Dress Up');
+    createCircle('images/icon.png', 'Element Blocks');
+    createCircle('images/icon.png', 'Emoji Game');
+    createCircle('images/icon.png', 'Endless Lake');
+    createCircle('images/icon.png', 'Fall Beans');
+    createCircle('images/icon.png', 'Fall Guys');
+    createCircle('images/icon.png', 'Friday Night Funkin\'');
+    createCircle('images/icon.png', 'Flip Dunk');
+    createCircle('images/icon.png', 'Fireboy and Watergirl');
+    createCircle('images/icon.png', 'Gartic Phone');
+    createCircle('images/icon.png', 'Geometry Dash');
+    createCircle('images/icon.png', 'Goose Game');
+    createCircle('images/icon.png', 'Get to the Choppa');
+    createCircle('images/icon.png', 'Happy Wheels');
+    createCircle('images/icon.png', 'Helix Jump');
+    createCircle('images/icon.png', 'HexGL');
+    createCircle('images/icon.png', 'Impostor');
+    createCircle('images/icon.png', 'I Love You 2');
+    createCircle('images/icon.png', 'I Love You');
+    createCircle('images/icon.png', 'Impostor');
+    createCircle('images/icon.png', 'Ice Scream');
+    createCircle('images/icon.png', 'Jungle Roller');
+    createCircle('images/icon.png', 'Knife Hit');
+    createCircle('images/icon.png', 'Krunker.io');
+    createCircle('images/icon.png', 'Keep Out');
+    createCircle('images/icon.png', 'Karnage.io');
+    createCircle('images/icon.png', 'Kiziland');
+    createCircle('images/icon.png', 'Lay Eggs');
+    createCircle('images/icon.png', 'Little Alchemy');
+    createCircle('images/icon.png', 'Lucky Life');
+    createCircle('images/icon.png', 'Meme Miner');
+    createCircle('images/icon.png', 'Moto X3M');
+    createCircle('images/icon.png', 'Madalin Stunt Cars 2');
+    createCircle('images/icon.png', 'Muddy Heights');
+    createCircle('images/icon.png', 'Minecraft');
+    createCircle('images/icon.png', 'Neon Biker');
+    createCircle('images/icon.png', 'Noodleman.io');
+    createCircle('images/icon.png', 'Papa Louie');
+    createCircle('images/icon.png', 'PAC-MAN');
+    createCircle('images/icon.png', 'Piano Tiles');
+    createCircle('images/icon.png', 'Pogo');
+    createCircle('images/icon.png', 'PUBG');
+    createCircle('images/icon.png', 'Raft Wars');
+    createCircle('images/icon.png', 'Rolling Sky');
+    createCircle('images/icon.png', 'Royal Heroes');
+    createCircle('images/icon.png', 'Run 3');
+    createCircle('images/icon.png', 'Slope');
+    createCircle('images/icon.png', 'Stickman Warriors');
+    createCircle('images/icon.png', 'Surviv.io');
+    createCircle('images/icon.png', 'Scary Teacher 3D');
+    createCircle('images/icon.png', 'Super Smash Flash 2');
+    createCircle('images/icon.png', 'Squid Game');
+    createCircle('images/icon.png', 'Streets of Rage');
+    createCircle('images/icon.png', 'Super Onion Boy');
+    createCircle('images/icon.png', 'Slither.io');
+    createCircle('images/icon.png', 'Tank Trouble');
+    createCircle('images/icon.png', 'Terraria');
+    createCircle('images/icon.png', 'Tower Defense');
+    createCircle('images/icon.png', 'Twisted City');
+    createCircle('images/icon.png', 'Uno Online');
+    createCircle('images/icon.png', 'Ultimate Knockout Race');
+    createCircle('images/icon.png', 'Vex 5');
+    createCircle('images/icon.png', 'Venge.io');
+    createCircle('images/icon.png', 'Worms Zone');
+    createCircle('images/icon.png', 'Word Search');
+    createCircle('images/icon.png', 'X-Trial Racing');
+    createCircle('images/icon.png', 'Yummy Hotdog');
+    createCircle('images/icon.png', 'Yellow Ball Adventure');
+    createCircle('images/icon.png', 'Zombie Mission');
+    createCircle('images/icon.png', 'ZigZag');
   </script>
-
-  <div class="title">
-    <h1>PixELA</h1>
-  </div>
 </body>
 </html>
