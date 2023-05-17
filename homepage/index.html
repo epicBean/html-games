@@ -86,6 +86,13 @@
 
       document.body.appendChild(circle);
 
+      setInterval(function() {
+        const newX = Math.floor(Math.random() * (window.innerWidth - 100));
+        const newY = Math.floor(Math.random() * (window.innerHeight - 100));
+        circle.style.left = newX + 'px';
+        circle.style.top = newY + 'px';
+      }, 5000);
+
       circle.addEventListener('click', function() {
         circle.style.display = 'none'; // Hide the clicked circle
 
