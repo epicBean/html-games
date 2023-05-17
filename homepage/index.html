@@ -62,11 +62,8 @@
 </head>
 <body>
   <script>
-    function navigateTo(url) {
-      window.location.href = url;
-    }
 
-    function createCircle(imageUrl, destinationUrl, text) {
+    function createCircle(imageUrl, text) {
       const circle = document.createElement('div');
       circle.classList.add('circle');
       const newX = Math.floor(Math.random() * (window.innerWidth - 100));
@@ -79,10 +76,6 @@
       image.src = imageUrl;
       circle.appendChild(image);
 
-      circle.addEventListener('click', function() {
-        navigateTo(destinationUrl);
-      });
-
       document.body.appendChild(circle);
 
       setInterval(function() {
@@ -94,43 +87,39 @@
     }
 
     // Create circles
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/eaglercraft-1-5', 'Eagler 1.5');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/eaglercraft-1-8-8', 'Eagler 1.8');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/eaglercraft/dragon-x-client', 'Dragon X');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/1v1-lol', '1v1.lol');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/3d-cuphead', '3D Cuphead');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/arras-io', 'Arras.io');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/agar-io', 'Agar.io');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/angry-birds', 'Angry Birds');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/among-us', 'Among Us');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/alien-homonid', 'Alien Hominid');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/adofai-demo', 'ADOFAI (Demo)');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/abandoned-fazbear', 'Abandoned Fazbear');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/bitlife', 'BitLife');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/battle-sim', 'Battle Sim');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/backrooms', 'Bakcrooms');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/blumgi-ball', 'Blumgi Ball');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/blumgi-castle', 'Blumgi Castle');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/baldi-basics', 'Baldi Basics');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/basketball-stars', 'Basketball Stars');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/boxel-rebound', 'Boxel Rebound');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/crossy-road', 'Crossy Road');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/cookie-clicker', 'Cookie Clicker');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/cats-love-cake', 'Cats Love Cake');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/castle-crashing-the-beard', 'Castle Crashing the Beard');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/adofai-demo', 'Capybara Clicker');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/dad-n-me', 'Dad N Me');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/doomz-io', 'Doomz.io');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/drive-mad', 'Drive Mad');
-    createCircle('images/icon.png', 'https://sites.google.com/view/pixelagames/games/games/drive-mad-2', 'Drive Mad 2');
+    createCircle('images/icon.png', 'Eagler 1.5');
+    createCircle('images/icon.png', 'Eagler 1.8');
+    createCircle('images/icon.png', 'Dragon X');
+    createCircle('images/icon.png', '1v1.lol');
+    createCircle('images/icon.png', '3D Cuphead');
+    createCircle('images/icon.png', 'Arras.io');
+    createCircle('images/icon.png', 'Agar.io');
+    createCircle('images/icon.png', 'Angry Birds');
+    createCircle('images/icon.png', 'Among Us');
+    createCircle('images/icon.png', 'Alien Hominid');
+    createCircle('images/icon.png', 'ADOFAI (Demo)');
+    createCircle('images/icon.png', 'Abandoned Fazbear');
+    createCircle('images/icon.png', 'BitLife');
+    createCircle('images/icon.png', 'Battle Sim');
+    createCircle('images/icon.png', 'Bakcrooms');
+    createCircle('images/icon.png', 'Blumgi Ball');
+    createCircle('images/icon.png', 'Blumgi Castle');
+    createCircle('images/icon.png', 'Baldi Basics');
+    createCircle('images/icon.png', 'Basketball Stars');
+    createCircle('images/icon.png', 'Boxel Rebound');
+    createCircle('images/icon.png', 'Crossy Road');
+    createCircle('images/icon.png', 'Cookie Clicker');
+    createCircle('images/icon.png', 'Cats Love Cake');
+    createCircle('images/icon.png', 'Castle Crashing the Beard');
+    createCircle('images/icon.png', 'Capybara Clicker');
+    createCircle('images/icon.png', 'Dad N Me');
+    createCircle('images/icon.png', 'Doomz.io');
+    createCircle('images/icon.png', 'Drive Mad');
+    createCircle('images/icon.png', 'Drive Mad 2');
   </script>
 
   <div class="title">
     <h1>PixELA</h1>
-  </div>
-  <div class="buttons">
-    <button onclick="window.location.href='https://sites.google.com/view/pixelagames/update-log'">Goto Update Log</button>
-    <button onclick="window.location.href='https://epicbean.github.io/html-games/'">Html Games</button>
   </div>
 </body>
 </html>
