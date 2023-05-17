@@ -186,11 +186,11 @@
         }
         };
 
-        const games = [];
-        games.push(['Game', 'Game2']);
+        const games = ["Game1", "Game2"];
 
         for (let i = 0; i < 3; i++) {
-          createCircle('images/icon.png', games[i]);
+          const game = games[i];
+          createCircle('images/icon.png', game);
         }
 
         setInterval(function() {
