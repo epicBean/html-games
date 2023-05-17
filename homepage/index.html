@@ -183,19 +183,20 @@
             this.position.x += this.velocity.x * 0.01;
             this.position.y += this.velocity.y * 0.01;
           }
+        }
         };
 
         const games = [];
         games.push(['Game', 'Game2']);
 
         for (let i = 0; i < 10; i++) {
-          createCircle('images/circle.png', string(games[i]));
+          createCircle('images/circle.png', games[i].toString());
         }
 
         setInterval(function() {
           circles.forEach(circle => circle.update());
         }, 20);
-      </script>
+    </script>
 
     <div class="title">
       <h1>Boids</h1>
