@@ -1,271 +1,203 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <style>
-    @font-face {
-      font-family: "quicksand";
-      src: url("../quicksand.ttf");
-    }
+  <head>
+    <style>
+      @font-face {
+        font-family: "quicksand";
+        src: url("../quicksand.ttf");
+      }
 
-    html{
-      font-family: quicksand, sans-serif;
-      overflow: none;
-      background-image: url('images/bg.jpg');
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-    .circle {
-      position: absolute;
-      overflow: hidden;
-      border-radius: 50%;
-      transition: all 20s ease-in-out;
-    }
+      html{
+        font-family: quicksand, sans-serif;
+        overflow: none;
+        background-image: url('images/bg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .circle {
+        position: absolute;
+        overflow: hidden;
+        border-radius: 50%;
+        transition: all 20s ease-in-out;
+      }
 
-    .circle:hover {
-      transform: scale(1.2);
-    }
+      .circle:hover {
+        transform: scale(1.2);
+      }
 
-    .circle:hover::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.7);
-      color: #fff;
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 14px;
-    }
+      .circle:hover::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
 
-    .circle img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
+      .circle img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
 
-    .title {
-      color: #bfc4ff;
-      text-align: center;
-    }
+      .title {
+        color: #bfc4ff;
+        text-align: center;
+      }
 
-    .buttons {
-      text-align: center;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -10%);
-    }
+      .buttons {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -10%);
+      }
 
-    .buttons button {
-      margin: 10px;
-      padding: 10px 20px;
-      background-color: #ccc;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-  </style>
-</head>
-<body>
-  <script>
-    function createCircle(imageUrl, text) {
-      const circle = document.createElement('div');
-      circle.classList.add('circle');
-      circle.style.left = Math.floor(Math.random() * (window.innerWidth - 100)) + 'px';
-      circle.style.top = Math.floor(Math.random() * (window.innerHeight - 100)) + 'px';
-      circle.setAttribute('data-text', text);
+      .buttons button {
+        margin: 10px;
+        padding: 10px 20px;
+        background-color: #ccc;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function createCircle(imageUrl, text) {
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+        const newX = Math.floor(Math.random() * (window.innerWidth - 100));
+        const newY = Math.floor(Math.random() * (window.innerHeight - 100));
+        circle.style.left = newX + 'px';
+        circle.style.top = newY + 'px';
+        circle.setAttribute('data-text', text);
 
-      const image = document.createElement('img');
-      image.src = imageUrl;
-      circle.appendChild(image);
+        const image = document.createElement('img');
+        image.src = imageUrl;
+        circle.appendChild(image);
 
-      document.body.appendChild(circle);
+        document.body.appendChild(circle);
 
-      const velocity = {
-        x: Math.random() * 2 - 1,
-        y: Math.random() * 2 - 1
-      };
+        setInterval(function() {
+          const newX = Math.floor(Math.random() * (window.innerWidth - 100));
+          const newY = Math.floor(Math.random() * (window.innerHeight - 100));
+          circle.style.left = newX + 'px';
+          circle.style.top = newY + 'px';
+        }, 5000);
 
-      const speed = 5; // Adjust the speed here
+        circle.addEventListener('click', function() {
+          circle.style.display = 'none'; // Hide the clicked circle
 
-      setInterval(function() {
-        const circleRect = circle.getBoundingClientRect();
-        const centerX = circleRect.left + circleRect.width / 2;
-        const centerY = circleRect.top + circleRect.height / 2;
+          setTimeout(function() {
+            const newX = Math.floor(Math.random() * (window.innerWidth - 100));
+            const newY = Math.floor(Math.random() * (window.innerHeight - 100));
+            circle.style.left = newX + 'px';
+            circle.style.top = newY + 'px';
+            circle.style.display = 'block'; // Show the circle after a delay
+          }, 1000);
+        });
 
-        const otherCircles = document.getElementsByClassName('circle');
-        const alignmentForce = { x: 0, y: 0 };
-        const separationForce = { x: 0, y: 0 };
-        const cohesionForce = { x: 0, y: 0 };
-
-        let count = 0;
-
-        for (let i = 0; i < otherCircles.length; i++) {
-          const otherCircle = otherCircles[i];
-
-          if (otherCircle !== circle) {
-            const otherCircleRect = otherCircle.getBoundingClientRect();
-            const otherCenterX = otherCircleRect.left + otherCircleRect.width / 2;
-            const otherCenterY = otherCircleRect.top + otherCircleRect.height / 2;
-            const distanceX = otherCenterX - centerX;
-            const distanceY = otherCenterY - centerY;
-            const distanceSquared = distanceX * distanceX + distanceY * distanceY;
-
-            if (distanceSquared < 10000) {
-              alignmentForce.x += otherCircle.velocity.x;
-              alignmentForce.y += otherCircle.velocity.y;
-
-              separationForce.x += distanceX / distanceSquared;
-              separationForce.y += distanceY / distanceSquared;
-
-              cohesionForce.x += distanceX;
-              cohesionForce.y += distanceY;
-
-              count++;
-            }
+        // Add boid behavior to the circle
+        circle.boid = {
+          position: {
+            x: newX,
+            y: newY
+          },
+          velocity: {
+            x: 0,
+            y: 0
+          },
+          separation: function(others) {
+            const neighbors = others.filter(other => other !== this);
+            const desiredSeparation = 20;
+            const forces = neighbors.map(other => {
+              const dx = other.position.x - this.position.x;
+              const dy = other.position.y - this.position.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              const desiredDistance = desiredSeparation / distance;
+              const force = {
+                x: dx * desiredDistance,
+                y: dy * desiredDistance
+              };
+              return force;
+            });
+            const totalForce = forces.reduce((a, b) => {
+              return {
+                x: a.x + b.x,
+                y: a.y + b.y
+              };
+            });
+            this.velocity.x += totalForce.x;
+            this.velocity.y += totalForce.y;
+          },
+          align: function(others) {
+            const neighbors = others.filter(other => other !== this);
+            const desiredVelocity = neighbors.reduce((a, b) => {
+              return {
+                x: a.velocity.x + b.velocity.x,
+                y: a.velocity.y + b.velocity.y
+              };
+            }, {
+              x: 0,
+              y: 0
+            });
+            const desiredSpeed = desiredVelocity.x * desiredVelocity.x + desiredVelocity.y * desiredVelocity.y;
+            const desiredMagnitude = Math.sqrt(desiredSpeed);
+            const desiredDirection = Math.atan2(desiredVelocity.y, desiredVelocity.x);
+            const force = {
+              x: desiredMagnitude * Math.cos(desiredDirection),
+              y: desiredMagnitude * Math.sin(desiredDirection)
+            };
+            this.velocity.x += force.x;
+            this.velocity.y += force.y;
+          },
+          cohesion: function(others) {
+            const neighbors = others.filter(other => other !== this);
+            const centerOfMass = {
+              x: neighbors.reduce((a, b) => a.position.x + b.position.x, 0) / neighbors.length,
+              y: neighbors.reduce((a, b) => a.position.y + b.position.y, 0) / neighbors.length
+            };
+            const desiredVelocity = {
+              x: centerOfMass.x - this.position.x,
+              y: centerOfMass.y - this.position.y
+            };
+            const desiredSpeed = desiredVelocity.x * desiredVelocity.x + desiredVelocity.y * desiredVelocity.y;
+            const desiredMagnitude = Math.sqrt(desiredSpeed);
+            const desiredDirection = Math.atan2(desiredVelocity.y, desiredVelocity.x);
+            const force = {
+              x: desiredMagnitude * Math.cos(desiredDirection),
+              y: desiredMagnitude * Math.sin(desiredDirection)
+            };
+            this.velocity.x += force.x;
+            this.velocity.y += force.y;
+          },
+          update: function() {
+            this.position.x += this.velocity.x * 0.01;
+            this.position.y += this.velocity.y * 0.01;
           }
-        }
-
-        if (count > 0) {
-          alignmentForce.x /= count;
-          alignmentForce.y /= count;
-          separationForce.x /= count;
-          separationForce.y /= count;
-          cohesionForce.x /= count;
-          cohesionForce.y /= count;
-        }
-
-        const acceleration = {
-          x: alignmentForce.x + separationForce.x + cohesionForce.x,
-          y: alignmentForce.y + separationForce.y + cohesionForce.y
         };
 
-        velocity.x += acceleration.x;
-        velocity.y += acceleration.y;
+        const games = ['Game1'];
 
-        const speedFactor = speed / Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
-        velocity.x *= speedFactor;
-        velocity.y *= speedFactor;
+        for (let i = 0; i < 10; i++) {
+          createCircle('images/circle.png', string(games[i]));
+        }
 
-        circle.style.left = (circleRect.left + velocity.x) + 'px';
-        circle.style.top = (circleRect.top + velocity.y) + 'px';
-      }, 16.67); // Update every 16.67 milliseconds (~60 FPS)
+        setInterval(function() {
+          circles.forEach(circle => circle.update());
+        }, 20);
+      </script>
 
-      circle.addEventListener('click', function() {
-        circle.style.display = 'none'; // Hide the clicked circle
-
-        setTimeout(function() {
-          circle.style.left = Math.floor(Math.random() * (window.innerWidth - 100)) + 'px';
-          circle.style.top = Math.floor(Math.random() * (window.innerHeight - 100)) + 'px';
-          circle.style.display = 'block'; // Show the circle after a delay
-        }, 1000);
-      });
-    }
-
-    // Create circles
-    createCircle('images/icon.png', 'Eagler 1.5');
-    createCircle('images/icon.png', 'Eagler 1.8');
-    createCircle('images/icon.png', 'Dragon X');
-    createCircle('images/icon.png', '1v1.lol');
-    createCircle('images/icon.png', '3D Cuphead');
-    createCircle('images/icon.png', 'Arras.io');
-    createCircle('images/icon.png', 'Agar.io');
-    createCircle('images/icon.png', 'Angry Birds');
-    createCircle('images/icon.png', 'Among Us');
-    createCircle('images/icon.png', 'Alien Hominid');
-    createCircle('images/icon.png', 'ADOFAI (Demo)');
-    createCircle('images/icon.png', 'Abandoned Fazbear');
-    createCircle('images/icon.png', 'BitLife');
-    createCircle('images/icon.png', 'Battle Sim');
-    createCircle('images/icon.png', 'Bakcrooms');
-    createCircle('images/icon.png', 'Blumgi Ball');
-    createCircle('images/icon.png', 'Blumgi Castle');
-    createCircle('images/icon.png', 'Baldi Basics');
-    createCircle('images/icon.png', 'Basketball Stars');
-    createCircle('images/icon.png', 'Boxel Rebound');
-    createCircle('images/icon.png', 'Crossy Road');
-    createCircle('images/icon.png', 'Cookie Clicker');
-    createCircle('images/icon.png', 'Cats Love Cake');
-    createCircle('images/icon.png', 'Castle Crashing the Beard');
-    createCircle('images/icon.png', 'Capybara Clicker');
-    createCircle('images/icon.png', 'Dad N Me');
-    createCircle('images/icon.png', 'Doomz.io');
-    createCircle('images/icon.png', 'Don\'t Get Caught');
-    createCircle('images/icon.png', 'Doge Miner');
-    createCircle('images/icon.png', 'Diep.io');
-    createCircle('images/icon.png', 'Dress Up');
-    createCircle('images/icon.png', 'Element Blocks');
-    createCircle('images/icon.png', 'Emoji Game');
-    createCircle('images/icon.png', 'Endless Lake');
-    createCircle('images/icon.png', 'Fall Beans');
-    createCircle('images/icon.png', 'Fall Guys');
-    createCircle('images/icon.png', 'Friday Night Funkin\'');
-    createCircle('images/icon.png', 'Flip Dunk');
-    createCircle('images/icon.png', 'Fireboy and Watergirl');
-    createCircle('images/icon.png', 'Gartic Phone');
-    createCircle('images/icon.png', 'Geometry Dash');
-    createCircle('images/icon.png', 'Goose Game');
-    createCircle('images/icon.png', 'Get to the Choppa');
-    createCircle('images/icon.png', 'Happy Wheels');
-    createCircle('images/icon.png', 'Helix Jump');
-    createCircle('images/icon.png', 'HexGL');
-    createCircle('images/icon.png', 'Impostor');
-    createCircle('images/icon.png', 'I Love You 2');
-    createCircle('images/icon.png', 'I Love You');
-    createCircle('images/icon.png', 'Impostor');
-    createCircle('images/icon.png', 'Ice Scream');
-    createCircle('images/icon.png', 'Jungle Roller');
-    createCircle('images/icon.png', 'Knife Hit');
-    createCircle('images/icon.png', 'Krunker.io');
-    createCircle('images/icon.png', 'Keep Out');
-    createCircle('images/icon.png', 'Karnage.io');
-    createCircle('images/icon.png', 'Kiziland');
-    createCircle('images/icon.png', 'Lay Eggs');
-    createCircle('images/icon.png', 'Little Alchemy');
-    createCircle('images/icon.png', 'Lucky Life');
-    createCircle('images/icon.png', 'Meme Miner');
-    createCircle('images/icon.png', 'Moto X3M');
-    createCircle('images/icon.png', 'Madalin Stunt Cars 2');
-    createCircle('images/icon.png', 'Muddy Heights');
-    createCircle('images/icon.png', 'Minecraft');
-    createCircle('images/icon.png', 'Neon Biker');
-    createCircle('images/icon.png', 'Noodleman.io');
-    createCircle('images/icon.png', 'Papa Louie');
-    createCircle('images/icon.png', 'PAC-MAN');
-    createCircle('images/icon.png', 'Piano Tiles');
-    createCircle('images/icon.png', 'Pogo');
-    createCircle('images/icon.png', 'PUBG');
-    createCircle('images/icon.png', 'Raft Wars');
-    createCircle('images/icon.png', 'Rolling Sky');
-    createCircle('images/icon.png', 'Royal Heroes');
-    createCircle('images/icon.png', 'Run 3');
-    createCircle('images/icon.png', 'Slope');
-    createCircle('images/icon.png', 'Stickman Warriors');
-    createCircle('images/icon.png', 'Surviv.io');
-    createCircle('images/icon.png', 'Scary Teacher 3D');
-    createCircle('images/icon.png', 'Super Smash Flash 2');
-    createCircle('images/icon.png', 'Squid Game');
-    createCircle('images/icon.png', 'Streets of Rage');
-    createCircle('images/icon.png', 'Super Onion Boy');
-    createCircle('images/icon.png', 'Slither.io');
-    createCircle('images/icon.png', 'Tank Trouble');
-    createCircle('images/icon.png', 'Terraria');
-    createCircle('images/icon.png', 'Tower Defense');
-    createCircle('images/icon.png', 'Twisted City');
-    createCircle('images/icon.png', 'Uno Online');
-    createCircle('images/icon.png', 'Ultimate Knockout Race');
-    createCircle('images/icon.png', 'Vex 5');
-    createCircle('images/icon.png', 'Venge.io');
-    createCircle('images/icon.png', 'Worms Zone');
-    createCircle('images/icon.png', 'Word Search');
-    createCircle('images/icon.png', 'X-Trial Racing');
-    createCircle('images/icon.png', 'Yummy Hotdog');
-    createCircle('images/icon.png', 'Yellow Ball Adventure');
-    createCircle('images/icon.png', 'Zombie Mission');
-    createCircle('images/icon.png', 'ZigZag');
-  </script>
-</body>
+    <div class="title">
+      <h1>Boids</h1>
+    </div>
+  </body>
 </html>
