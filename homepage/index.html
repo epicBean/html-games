@@ -2,7 +2,6 @@
 <html>
 <head>
   <style>
-
     @font-face {
       font-family: "quicksand";
       src: url("../quicksand.ttf");
@@ -72,7 +71,6 @@
 </head>
 <body>
   <script>
-
     function createCircle(imageUrl, text) {
       const circle = document.createElement('div');
       circle.classList.add('circle');
@@ -88,12 +86,17 @@
 
       document.body.appendChild(circle);
 
-      setInterval(function() {
-        const newX = Math.floor(Math.random() * (window.innerWidth - 100));
-        const newY = Math.floor(Math.random() * (window.innerHeight - 100));
-        circle.style.left = newX + 'px';
-        circle.style.top = newY + 'px';
-      }, 1000);
+      circle.addEventListener('click', function() {
+        circle.style.display = 'none'; // Hide the clicked circle
+
+        setTimeout(function() {
+          const newX = Math.floor(Math.random() * (window.innerWidth - 100));
+          const newY = Math.floor(Math.random() * (window.innerHeight - 100));
+          circle.style.left = newX + 'px';
+          circle.style.top = newY + 'px';
+          circle.style.display = 'block'; // Show the circle after a delay
+        }, 1000);
+      });
     }
 
     // Create circles
