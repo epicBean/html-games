@@ -86,12 +86,87 @@
 
       document.body.appendChild(circle);
 
+      const velocity = {
+        x: Math.random() * 2 - 1,
+        y: Math.random() * 2 - 1
+      };
+
+      const speed = 2;
+
       setInterval(function() {
-        const newX = Math.floor(Math.random() * (window.innerWidth - 100));
-        const newY = Math.floor(Math.random() * (window.innerHeight - 100));
-        circle.style.left = newX + 'px';
-        circle.style.top = newY + 'px';
-      }, 5000);
+        const circleRect = circle.getBoundingClientRect();
+        const centerX = circleRect.left + circleRect.width / 2;
+        const centerY = circleRect.top + circleRect.height / 2;
+
+        const otherCircles = document.getElementsByClassName('circle');
+        const alignmentForce = { x: 0, y: 0 };
+        const separationForce = { x: 0, y: 0 };
+        const cohesionForce = { x: 0, y: 0 };
+
+        let count = 0;
+
+        for (let i = 0; i < otherCircles.length; i++) {
+          if (otherCircles[i] !== circle) {
+            const otherCircleRect = otherCircles[i].getBoundingClientRect();
+            const otherCenterX = otherCircleRect.left + otherCircleRect.width / 2;
+            const otherCenterY = otherCircleRect.top + otherCircleRect.height / 2;
+
+            const distanceX = otherCenterX - centerX;
+            const distanceY = otherCenterY - centerY;
+            const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+            if (distance < 150) {
+              alignmentForce.x += velocity.x;
+              alignmentForce.y += velocity.y;
+
+              separationForce.x += distanceX / distance;
+              separationForce.y += distanceY / distance;
+
+              cohesionForce.x += distanceX;
+              cohesionForce.y += distanceY;
+
+              count++;
+            }
+          }
+        }
+
+        if (count > 0) {
+          alignmentForce.x /= count;
+          alignmentForce.y /= count;
+
+          separationForce.x /= count;
+          separationForce.y /= count;
+
+          cohesionForce.x /= count;
+          cohesionForce.y /= count;
+        }
+
+        const acceleration = {
+          x: alignmentForce.x + separationForce.x + cohesionForce.x,
+          y: alignmentForce.y + separationForce.y + cohesionForce.y
+        };
+
+        velocity.x += acceleration.x;
+        velocity.y += acceleration.y;
+
+        const speedFactor = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y) / speed;
+
+        if (speedFactor > 0) {
+          velocity.x /= speedFactor;
+          velocity.y /= speedFactor;
+        }
+
+        const nextX = centerX + velocity.x * speed;
+        const nextY = centerY + velocity.y * speed;
+
+        if (nextX >= 0 && nextX <= window.innerWidth - circleRect.width) {
+          circle.style.left = nextX + 'px';
+        }
+
+        if (nextY >= 0 && nextY <= window.innerHeight - circleRect.height) {
+          circle.style.top = nextY + 'px';
+        }
+      }, 50);
 
       circle.addEventListener('click', function() {
         circle.style.display = 'none'; // Hide the clicked circle
