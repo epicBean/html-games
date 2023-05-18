@@ -3,6 +3,17 @@
 <head>
     <title>Chat System</title>
     <style>
+
+        @font-face {
+            font-family: "quicksand";
+            src: url("../quicksand.ttf");
+        }
+
+        html {
+            font-family: quicksand, sans-serif;
+        }
+
+
         #chatbox {
             height: 300px;
             overflow-y: scroll;
@@ -49,8 +60,6 @@
             return;
             }
 
-            // const socket = new WebSocket("ws://${serverIp}")
-
             var chatEntry = document.createElement("p");
             chatEntry.innerHTML = "<strong>" + username + ":</strong> " + message;
             chatbox.appendChild(chatEntry);
@@ -75,6 +84,8 @@
                 try {
                 if (clientIp !== "" && username !== "" && message !== "") {
                     console.log(`${clientIp}|${username}|${crackedServerIp}|${reqServerId}|${message}`);
+                    const socket = new WebSocket("ws://${serverIp}")
+                    socket.send(`${ipAdress}|${username}|${serverIp}|${serverId}|${message}`);
                 } else {
                     throw new Error('Missing required values');
                 }
@@ -85,8 +96,6 @@
             .catch(error => {
                 console.error('Error:', error);
             });
-
-            // socket.send("${ipAdress}|${username}|${serverIp}|${serverId}|${message}");
 
         }
     </script>
