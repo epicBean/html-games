@@ -45,6 +45,18 @@
             chatbox.appendChild(chatEntry);
             messageInput.value = "";
             messageInput.focus();
+
+            fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ipAddress = data.ip;
+                console.log('IP address:', ipAddress);
+                // Proceed with sending the packet or performing other actions
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
         }
     </script>
 </body>
