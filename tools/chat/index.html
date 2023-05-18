@@ -3,7 +3,6 @@
 <head>
     <title>Chat System</title>
     <style>
-
         @font-face {
             font-family: "quicksand";
             src: url("../../quicksand.ttf");
@@ -20,7 +19,6 @@
         div {
             font-family: quicksand, sans-serif;
         }
-
 
         #chatbox {
             height: 300px;
@@ -56,7 +54,6 @@
 
         function sendMessage() {
             const defaultIp = "192.168.1.1";
-            const defaultPort = "16400";
 
             var username = usernameInput.value;
             var message = messageInput.value;
@@ -64,9 +61,10 @@
             var reqServerId = serverId.value;
             var password = serverPassword.value;
             let clientIp;
+            var socket;
 
             if (username === "" || message === "") {
-            return;
+                return;
             }
 
             var chatEntry = document.createElement("p");
@@ -79,27 +77,42 @@
             .then(response => response.json())
             .then(data => {
                 if (crackedServerIp === "") {
-                crackedServerIp = defaultIp;
+                    crackedServerIp = defaultIp;
                 }
 
                 if (reqServerId === "") {
-                reqServerId = defaultPort;
+                    reqServerId = defaultPort;
                 }
 
                 clientIp = data.ip;
                 console.log('IP address:', clientIp);
-                // Proceed with sending the packet or performing other actions
-
+                
                 try {
-                if (clientIp !== "" && username !== "" && message !== "") {
-                    console.log(`${clientIp}|${username}|${reqServerId}|${password}|${message}`);
-                    const socket = new WebSocket(`ws://${serverIp.toString()}`)
-                    socket.send(`${clientIp}|${username}|${reqServerId}|${password}|${message}`);
-                } else {
-                    throw new Error('Missing required values');
-                }
+                    if (clientIp !== "" && username !== "" && message !== "") {
+                        console.log(`${clientIp}|${username}|${reqServerId}|${password}|${message}`);
+                        socket = new WebSocket(`ws://${crackedServerIp}:80`);
+
+                        socket.onmessage = function (event) {
+                            var chatbox = document.getElementById('chatbox');
+                            chatbox.innerHTML = '';
+
+                            var response = event.data;
+                            var parsedResponse = response.split("§")
+                            for (let x = 0; x < parsedResponse.length; x++){
+                                var chatResponse = document.createElement("p");
+                                chatResponse.textContent = parsedResponse[x];
+                                chatbox.appendChild(chatResponse);
+                            }
+                        };
+
+                        socket.onopen = function () {
+                            socket.send(`${clientIp}|${username}|${reqServerId}|${password}|${message}`);
+                        };
+                    } else {
+                        throw new Error('Missing required values');
+                    }
                 } catch (error) {
-                console.error('Error:', error);
+                    console.error('Error:', error);
                 }
             })
             .catch(error => {
