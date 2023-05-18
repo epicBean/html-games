@@ -44,7 +44,7 @@
             var message = messageInput.value;
             var crackedServerIp = serverIp.value;
             var reqServerId = serverId.value;
-            var clientIp = ""
+            let clientIp;
 
             if (username === "" || message === "") {
                 return;
@@ -72,17 +72,21 @@
                 clientIp = data.ip;
                 console.log('IP address:', clientIp);
                 // Proceed with sending the packet or performing other actions
+
+                try {
+                if (clientIp !== "" && username !== "" && message !== "") {
+                    console.log(`${clientIp}|${username}|${crackedServerIp}|${reqServerId}|${message}`);
+                } else {
+                    throw new Error('Missing required values');
+                }
+                } catch (error) {
+                console.error('Error:', error);
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
 
-            if(clientIp !== "" && username !== "" && message !== ""){
-                console.log(`${clientIp}|${username}|${crackedServerIp}|${reqServerId}|${message}`);
-            }
-            else{
-                console.warn("Error | Some Field Were Not Filled")
-            }
             //socket.send("${ipAdress}|${username}|${serverIp}|${serverId}|${message}");
 
         }
