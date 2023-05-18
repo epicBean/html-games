@@ -42,7 +42,9 @@
 
             var username = usernameInput.value;
             var message = messageInput.value;
-            var serverIp = messageInput.value;
+            var crackedServerIp = messageInput.value;
+            var reqServerId = messageInput.value;
+            var clientIp = ""
 
             if (username === "" || message === "") {
                 return;
@@ -67,15 +69,15 @@
             fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
             .then(data => {
-                const ipAddress = data.ip;
-                console.log('IP address:', ipAddress);
+                clientIp = data.ip;
+                console.log('IP address:', clientIp);
                 // Proceed with sending the packet or performing other actions
             })
             .catch(error => {
                 console.error('Error:', error);
             });
 
-            console.log(`${ipAdress}|${username}|${serverIp}|${serverId}|${message}`);
+            console.log(`${clientIp}|${username}|${crackedServerIp}|${reqServerId}|${message}`);
             //socket.send("${ipAdress}|${username}|${serverIp}|${serverId}|${message}");
 
         }
