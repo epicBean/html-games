@@ -50,14 +50,6 @@
                 return;
             }
 
-            if(serverIp === ""){
-                crackedServerIp = defaultIp;
-            }
-
-            if(serverId === ""){
-                reqServerId = defaultId;
-            }
-
             //const socket = new WebSocket("ws://${serverIp}")
 
             var chatEntry = document.createElement("p");
@@ -69,6 +61,15 @@
             fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
             .then(data => {
+                
+                if(serverIp === ""){
+                    crackedServerIp = defaultIp;
+                }
+
+                if(serverId === ""){
+                    reqServerId = defaultPort;
+                }
+
                 clientIp = data.ip;
                 console.log('IP address:', clientIp);
                 // Proceed with sending the packet or performing other actions
