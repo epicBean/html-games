@@ -77,7 +77,12 @@
                 console.error('Error:', error);
             });
 
-            console.log(`${clientIp}|${username}|${crackedServerIp}|${reqServerId}|${message}`);
+            if(clientIp !== "" && username !== "" && message !== ""){
+                console.log(`${clientIp}|${username}|${crackedServerIp}|${reqServerId}|${message}`);
+            }
+            else{
+                console.warn("Error | Some Field Were Not Filled")
+            }
             //socket.send("${ipAdress}|${username}|${serverIp}|${serverId}|${message}");
 
         }
