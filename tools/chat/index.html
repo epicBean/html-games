@@ -93,7 +93,7 @@
                 try {
                 if (clientIp !== "" && username !== "" && message !== "") {
                     console.log(`${clientIp}|${username}|${reqServerId}|${password}|${message}`);
-                    const socket = new WebSocket(`ws://${serverIp}`)
+                    const socket = new WebSocket(`ws://${serverIp.toString()}`)
                     socket.send(`${clientIp}|${username}|${reqServerId}|${password}|${message}`);
                 } else {
                     throw new Error('Missing required values');
