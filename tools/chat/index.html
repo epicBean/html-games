@@ -39,7 +39,6 @@
             const defaultIp = "192.168.1.1";
             const defaultPort = "16400";
 
-
             var username = usernameInput.value;
             var message = messageInput.value;
             var crackedServerIp = serverIp.value;
@@ -47,10 +46,10 @@
             let clientIp;
 
             if (username === "" || message === "") {
-                return;
+            return;
             }
 
-            //const socket = new WebSocket("ws://${serverIp}")
+            // const socket = new WebSocket("ws://${serverIp}")
 
             var chatEntry = document.createElement("p");
             chatEntry.innerHTML = "<strong>" + username + ":</strong> " + message;
@@ -61,13 +60,12 @@
             fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
             .then(data => {
-                
-                if(serverIp === ""){
-                    crackedServerIp = defaultIp;
+                if (crackedServerIp === "") {
+                crackedServerIp = defaultIp;
                 }
 
-                if(serverId === ""){
-                    reqServerId = defaultPort;
+                if (reqServerId === "") {
+                reqServerId = defaultPort;
                 }
 
                 clientIp = data.ip;
@@ -88,7 +86,7 @@
                 console.error('Error:', error);
             });
 
-            //socket.send("${ipAdress}|${username}|${serverIp}|${serverId}|${message}");
+            // socket.send("${ipAdress}|${username}|${serverIp}|${serverId}|${message}");
 
         }
     </script>
