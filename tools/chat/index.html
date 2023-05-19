@@ -34,14 +34,14 @@
     <div id="chatbox"></div>
     
     <div class="message-tools">
-        <input type="text" id="username" placeholder="Enter your username">
-        <input type="text" id="message" placeholder="Enter your message">
+        <input type="text" id="username" placeholder="Enter your username" maxlength="20">
+        <input type="text" id="message" placeholder="Enter your message" maxlength="100">
         <button onclick="sendMessage()">Send</button>
     </div>
     <div class="server">
         <input type="text" id="cracked-server" placeholder="Custom Server IP (Leave Blank For Default Servers)">
-        <input type="text" id="server" placeholder="Enter server ID">
-        <input type="password" id="server-password" placeholder="Server Password">
+        <input type="text" id="server" placeholder="Enter server ID" maxlength="4">
+        <input type="password" id="server-password" placeholder="Server Password" maxlength="10">
     </div>
     
     <script>
@@ -68,7 +68,7 @@
             }
 
             var chatEntry = document.createElement("p");
-            chatEntry.innerHTML = "<strong>" + username + ":</strong> " + message;
+            chatEntry.innerHTML = `${username} : ${message}`;
             chatbox.appendChild(chatEntry);
             messageInput.value = "";
             messageInput.focus();
