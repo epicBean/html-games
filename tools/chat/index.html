@@ -40,6 +40,7 @@
     </div>
     <div class="server">
         <input type="text" id="cracked-server" placeholder="Custom Server IP (Leave Blank For Default Servers)">
+        <input type="text" id="port" placeholder="Custom Port">
         <input type="text" id="server" placeholder="Enter server ID" maxlength="4">
         <input type="password" id="server-password" placeholder="Server Password" maxlength="10">
     </div>
@@ -51,15 +52,18 @@
         var serverIp = document.getElementById("cracked-server");
         var serverId = document.getElementById("server");
         var serverPassword = document.getElementById("server-password");
+        var portObj = document.getElementById("port");
 
         function sendMessage() {
-            const defaultIp = "192.168.1.1";
+            const defaultIp = "192.168.1.1"
+            const defaultPort = "80"
 
             var username = usernameInput.value;
             var message = messageInput.value;
             var crackedServerIp = serverIp.value;
             var reqServerId = serverId.value;
             var password = serverPassword.value;
+            var port = portObj.value;
             let clientIp;
             var socket;
 
@@ -80,8 +84,8 @@
                     crackedServerIp = defaultIp;
                 }
 
-                if (reqServerId === "") {
-                    reqServerId = defaultPort;
+                if (port === "") {
+                    port = defaultPort;
                 }
 
                 clientIp = data.ip;
