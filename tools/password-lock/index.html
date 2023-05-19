@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <input id="passwordInput" type="password">
+        <button onclick="login()">Login</button>
+        <script>
+            var pinInput = document.getElementById("passwordInput");
+            function login(){
+                var pin = pinInput.value();
+                if(pin === "0963"){
+                    window.location.href = "../../index.html";
+                }
+            }
+        </script>
+    </body>
+</html>
