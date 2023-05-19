@@ -90,7 +90,7 @@
                 try {
                     if (clientIp !== "" && username !== "" && message !== "") {
                         console.log(`${clientIp}|${username}|${reqServerId}|${password}|${message}`);
-                        socket = new WebSocket(`ws://${crackedServerIp}:80`);
+                        socket = new WebSocket(`wss://${crackedServerIp}:80`);
 
                         socket.onmessage = function (event) {
                             var chatbox = document.getElementById('chatbox');
